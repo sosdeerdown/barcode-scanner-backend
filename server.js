@@ -2,21 +2,19 @@ const express = require("express");
 const request = require("request");
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+require("dotenv").config();
 
-// app.get("/", (req, res) => res.send("API Running"));
+const PORT = process.env.PORT;
+const api_key = process.env.API_KEY;
 
-// app.use("/api/:barcode", require("./routes/api/api"));
 
 app.get("/api", async (req, res) => {
-    //   const barCodeResult = await request({ url: url, json: true });
-    const barCodeNumber = (req.query);
-    const url = `http://api.ean-search.org/api?token=292c9c1116ff30fb0c2da026fe24c3&op=barcode-lookup&format=json&ean=${barCodeNumber}`;
+  const barCodeNumber = req.query.code;
+  const url = `http://api.ean-search.org/api?token=${api_key}&op=barcode-lookup&format=json&ean=${barCodeNumber}`;
 
-  request({url, json:true}, ());
-
-  res.send({
-    msg: "hello",
+  request({ url, json: true }, (error, response) => {
+    if (error) return res.send("Unable to fetch data!");
+    res.send(response.body[0]);
   });
 });
 
