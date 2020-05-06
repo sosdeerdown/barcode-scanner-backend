@@ -1,29 +1,30 @@
 const express = require("express");
+const cors = require('cors')
+require("dotenv").config();
 const request = require("request");
 const connectDB = require("./config/db");
 const Barcode = require("./models/Barcode");
 const app = express();
-
-require("dotenv").config();
+app.use(cors())
 
 connectDB();
 
 const PORT = process.env.PORT;
 const api_key = process.env.API_KEY;
 
-app.get("/api", async (req, res) => {
+app.post("/api/scan", async (req, res) => {
   const barcodeNumber = req.query.code;
   const url = `http://api.ean-search.org/api?token=${api_key}&op=barcode-lookup&format=json&ean=${barcodeNumber}`;
-
+  
   request({ url, json: true }, async (error, response) => {
-    if (error) return res.send("Unable to fetch data!");
+    if (error) return res.send("Code does not exist.");
 
     const { ean, name, categoryId, categoryName } = response.body[0];
 
     try {
       let barcode = await Barcode.findOne({ ean });
       if (barcode) {
-        return res.status(400).json({ msg: "Entry already exists!" });
+        return res.status(400).send( "Entry already exists!" );
       }
 
       barcode = new Barcode({
@@ -37,7 +38,7 @@ app.get("/api", async (req, res) => {
       //   res.send("Entry added!");
       res.status(200).send(response.body[0]);
     } catch (error) {
-      res.status(500).send("Server error!");
+      res.status(500).send("Internal Error!");
     }
   });
 });

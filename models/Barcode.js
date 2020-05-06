@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const BarcodeSchema = mongoose.Schema({
   ean: {
     type: String,
-    required: true,
     unique: true,
   },
   name: {
@@ -15,6 +14,7 @@ const BarcodeSchema = mongoose.Schema({
   },
   categoryName: {
     type: String,
+    required: true,
   },
 });
 
