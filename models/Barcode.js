@@ -10,7 +10,7 @@ const BarcodeSchema = mongoose.Schema({
     required: true,
   },
   categoryId: {
-    type: Number,
+    type: String,
   },
   categoryName: {
     type: String,
