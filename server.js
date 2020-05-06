@@ -1,12 +1,14 @@
 const express = require("express");
 const request = require("request");
+const connectDB = require("./config/db");
 const app = express();
 
 require("dotenv").config();
 
+connectDB();
+
 const PORT = process.env.PORT;
 const api_key = process.env.API_KEY;
-
 
 app.get("/api", async (req, res) => {
   const barCodeNumber = req.query.code;
