@@ -16,6 +16,7 @@ app.use(express.json());
 
 app.post("/api/scan", async (req, res) => {
   const barcodeNumber = req.query.code;
+  console.log(req);
   const url = `http://api.ean-search.org/api?token=${api_key}&op=barcode-lookup&format=json&ean=${barcodeNumber}`;
 
   request({ url, json: true }, async (error, response) => {
@@ -48,7 +49,6 @@ app.post("/api/scan", async (req, res) => {
 app.post("/api/add", async (req, res) => {
   const data = { ...req.body };
   const { ean, name, categoryId, categoryName } = data;
-  console.log(data);
   try {
     let barcode = await Barcode.findOne({ ean });
     if (barcode) {
@@ -67,7 +67,6 @@ app.post("/api/add", async (req, res) => {
     res.status(200).send("Entry Added");
   } catch (error) {
     res.status(500).send("Internal Error!");
-    console.log(error.message);
   }
 });
 
