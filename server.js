@@ -1,6 +1,7 @@
 const express = require("express");
 const request = require("request");
 const connectDB = require("./config/db");
+const barCode = require("./models/Barcode");
 const app = express();
 
 require("dotenv").config();
