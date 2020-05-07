@@ -6,7 +6,7 @@ const request = require("request");
 const connectDB = require("./config/db");
 const Barcode = require("./models/Barcode");
 const app = express();
-app.use(cors());
+// app.use(cors());
 
 connectDB();
 
@@ -14,11 +14,13 @@ const PORT = process.env.PORT;
 const api_key = process.env.API_KEY;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
-
+app.get('/ping', function (req, res) {
+  return res.send('pong');
+ });
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile('./build/index.html');
 });
 
 app.post("/api/scan", async (req, res) => {
