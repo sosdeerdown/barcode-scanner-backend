@@ -15,6 +15,7 @@ const api_key = process.env.API_KEY;
 app.use(express.json());
 
 app.post("/api/scan", async (req, res) => {
+  console.log("HELLo")
   const barcodeNumber = req.query.code;
   console.log(req);
   const url = `http://api.ean-search.org/api?token=${api_key}&op=barcode-lookup&format=json&ean=${barcodeNumber}`;
