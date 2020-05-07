@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require('path');
 require("dotenv").config();
 const request = require("request");
 const connectDB = require("./config/db");
@@ -13,6 +14,12 @@ const PORT = process.env.PORT;
 const api_key = process.env.API_KEY;
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.post("/api/scan", async (req, res) => {
   console.log("HELLo")
