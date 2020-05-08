@@ -14,13 +14,13 @@ const PORT = process.env.PORT;
 const api_key = process.env.API_KEY;
 
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', function (req, res) {
   return res.send('pong');
  });
 app.get('/*', function(req, res) {
-  res.sendFile('./build/index.html');
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.post("/api/scan", async (req, res) => {
