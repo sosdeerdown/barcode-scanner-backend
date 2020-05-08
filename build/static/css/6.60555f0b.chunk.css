@@ -1,0 +1,2 @@
+.container{position:relative}#interactive.viewport,.container{min-height:480px}#interactive.viewport canvas,video{top:0;left:0}#interactive.viewport canvas.drawingBuffer,video.drawingBuffer{position:absolute}#interactive.viewport>canvas,#interactive.viewport>video{max-width:100%;width:100%}
+/*# sourceMappingURL=6.60555f0b.chunk.css.map */
