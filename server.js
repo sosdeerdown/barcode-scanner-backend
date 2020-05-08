@@ -20,7 +20,7 @@ app.get('/ping', function (req, res) {
   return res.send('pong');
  });
 app.get('/*', function(req, res) {
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.post("/api/scan", async (req, res) => {
