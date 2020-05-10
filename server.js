@@ -76,6 +76,7 @@ app.post("/api/add", async (req, res) => {
     //   res.send("Entry added!");
     res.status(200).send("Entry Added");
   } catch (error) {
+    console.log(error)
     res.status(500).send("Internal Error!");
   }
 });
