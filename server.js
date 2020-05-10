@@ -18,11 +18,15 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/ping', function (req, res) {
   return res.send('pong');
- });
+});
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
+function myerror(e){
+  console("______________________________UERRR___________________________");
+  console.log(e);
+  console("_________________________________________________________");
+}
 app.post("/api/scan", async (req, res) => {
   console.log("HELLo")
   const barcodeNumber = req.query.code;
@@ -51,9 +55,7 @@ app.post("/api/scan", async (req, res) => {
       //   res.send("Entry added!");
       res.status(200).send(response.body[0]);
     } catch (error) {
-      console("______________________________UERRR___________________________")
-      console.log(error)
-      console("_________________________________________________________")
+      myerror(error)
       res.status(500).send("Internal Error!");
     }
   });
@@ -79,9 +81,7 @@ app.post("/api/add", async (req, res) => {
     //   res.send("Entry added!");
     res.status(200).send("Entry Added");
   } catch (error) {
-    console("______________________________ERRR___________________________")
-    console.log(error)
-    console("_________________________________________________________")
+    myerror(error)
     res.status(500).send("Internal Error!");
 
   }
