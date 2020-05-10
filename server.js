@@ -51,6 +51,9 @@ app.post("/api/scan", async (req, res) => {
       //   res.send("Entry added!");
       res.status(200).send(response.body[0]);
     } catch (error) {
+      console("______________________________UERRR___________________________")
+      console.log(error)
+      console("_________________________________________________________")
       res.status(500).send("Internal Error!");
     }
   });
